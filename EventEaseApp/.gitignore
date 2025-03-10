@@ -1,0 +1,23 @@
+# Build directories
+bin/
+obj/
+
+# User-specific files
+.vscode/
+*.user
+*.suo
+
+# Project-specific files
+*.cache
+*.nuget.cache
+*.nuget.dgspec.json
+*.nuget.g.props
+*.nuget.g.targets
+project.assets.json
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
