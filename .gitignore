@@ -21,3 +21,5 @@ project.assets.json
 # Temporary files
 *.tmp
 *.temp
+EventEaseApp/obj/Debug/net9.0/EventEaseApp.AssemblyInfo.cs
+EventEaseApp/obj/Debug/net9.0/EventEaseApp.AssemblyInfoInputs.cache
