@@ -1,30 +1,31 @@
-﻿<section="registration-form">
-<EditForm Model="NewAttendee" OnValidSubmit="HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+﻿<section class="registration-form">
+    <EditForm Model="NewAttendee" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-    <div class="form-group">
-        <label for="firstName">First Name:</label>
-        <InputText id="firstName" class="form-control" @bind-Value="NewAttendee.FirstName" />
-    </div>
-    <div class="form-group">
-        <label for="lastName">Last Name:</label>
-        <InputText id="lastName" class="form-control" @bind-Value="NewAttendee.LastName" />
-    </div>
-    <div class="form-group">
-        <label for="email">Email:</label>
-        <InputText id="email" class="form-control" @bind-Value="NewAttendee.Email" />
-    </div>
-    <div class="form-group">
-        <label for="phoneNumber">Phone Number:</label>
-        <InputText id="phoneNumber" class="form-control" @bind-Value="NewAttendee.PhoneNumber" />
-    </div>
-    <div class="d-flex justify-content-start">
-        <button type="submit" class="btn btn-success btn-reg">Register</button>
-        <button type="button" class="btn btn-secondary btn-reg" @onclick="ResetForm">Reset</button>
-    </div>
-</EditForm>
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <InputText id="firstName" class="form-control" @bind-Value="NewAttendee.FirstName" />
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <InputText id="lastName" class="form-control" @bind-Value="NewAttendee.LastName" />
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <InputText id="email" class="form-control" @bind-Value="NewAttendee.Email" />
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number:</label>
+            <InputText id="phoneNumber" class="form-control" @bind-Value="NewAttendee.PhoneNumber" />
+        </div>
+        <div class="d-flex justify-content-start">
+            <button type="submit" class="btn btn-success btn-reg">Register</button>
+            <button type="button" class="btn btn-secondary btn-reg" @onclick="ResetForm">Reset</button>
+        </div>
+    </EditForm>
 </section>
+
 @code {
     [Parameter]
     public Event? Event { get; set; }
