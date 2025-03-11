@@ -1,32 +1,27 @@
 ﻿@page "/events"
+@inject EventService EventService;
 @using EventEaseApp.Components
 
 <h3>EventList</h3>
-@foreach (var e in events)
+@if (EventService.Events == null)
 {
-    <EventCard Event=e />
+    <p><em>Loading...</em></p>
 }
-@code {
-    private List<Event> events = new List<Event>();
-
-    private void LoadEvents()
+else if (EventService.Events.Count == 0)
+{
+    <p><em>No events found.</em></p>
+}
+else
+{
+    @foreach (var e in EventService.Events)
     {
-        events = new List<Event>();
-        for (int i = 1; i <= 10; i++)
-        {
-            events.Add(new Event
-            {
-                Name = $"Event {i}",
-                Date = DateTime.Now.AddDays(i),
-                Description = $"Description for event {i}",
-                Location = $"Location for event {i}",
-                EndDate = DateTime.Now.AddDays(i + 1),
-                CreatedAt = DateTime.Now
-            });
-        }
+        <EventCard Event=e />
     }
-    protected override void OnInitialized()
+}
+
+@code {
+    protected override async Task OnInitializedAsync()
     {
-        LoadEvents();
+       EventService.LoadEvents();
     }
 }

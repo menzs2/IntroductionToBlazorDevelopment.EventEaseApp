@@ -1,4 +1,7 @@
-﻿@page "/eventdetail/{event:Event}"
+﻿@page "/eventdetail/{Id:int}"
+@using System.Text.RegularExpressions
+@inject EventService EventService;
+@inject NavigationManager NavigationManager;
 
 <h3>EventDetail</h3>
 <div>
@@ -9,8 +12,15 @@
     <p>EndDate: @Event.EndDate</p>
     <p>CreatedAd: @Event.CreatedAt</p>
 </div>
+
 @code {
+
+    [Parameter]
+    public int Id { get; set; }
     private Event Event { get; set; }
 
-    
+    protected override async Task OnInitializedAsync()
+    {
+        Event = EventService.Events.FirstOrDefault(e => e.Id == Id) ?? new Event();
+    }
 }

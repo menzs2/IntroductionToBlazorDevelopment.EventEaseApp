@@ -2,7 +2,7 @@
 <p><strong>Date:</strong> @Event.Date.ToString("MMMM dd, yyyy")</p>
 <p><strong>Description:</strong> @Event.Description</p>
 
-<a href="/eventdetail/@Event" class="btn btn-primary">View Details</a>
+<a href="/eventdetail/@Event.Id" class="btn btn-primary">View Details</a>
 
 @code {
     [Parameter]
