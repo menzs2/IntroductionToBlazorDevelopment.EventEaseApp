@@ -5,7 +5,7 @@
 @foreach (var e in events)
 {
     <EventCard Event=e />
-}   
+}
 @code {
     private List<Event> events = new List<Event>();
 
@@ -18,7 +18,10 @@
             {
                 Name = $"Event {i}",
                 Date = DateTime.Now.AddDays(i),
-                Description = $"Description for event {i}"
+                Description = $"Description for event {i}",
+                Location = $"Location for event {i}",
+                EndDate = DateTime.Now.AddDays(i + 1),
+                CreatedAt = DateTime.Now
             });
         }
     }

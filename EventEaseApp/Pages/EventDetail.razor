@@ -1,0 +1,16 @@
+﻿@page "/eventdetail/{event:Event}"
+
+<h3>EventDetail</h3>
+<div>
+    <h4>@Event.Name</h4>
+    <p>@Event.Description</p>
+    <p>Date: @Event.Date.ToString("MM/dd/yyyy")</p>
+    <p>Location: @Event.Location</p>
+    <p>EndDate: @Event.EndDate</p>
+    <p>CreatedAd: @Event.CreatedAt</p>
+</div>
+@code {
+    private Event Event { get; set; }
+
+    
+}
