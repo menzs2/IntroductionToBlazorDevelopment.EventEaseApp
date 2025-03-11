@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿namespace EventEaseApp;
 
-namespace EventEaseApp.Services
-{
     public class ParticipantService
     {
         private readonly List<Participant> participants = new List<Participant>();
@@ -43,4 +40,3 @@ namespace EventEaseApp.Services
             }
         }
     }
-}

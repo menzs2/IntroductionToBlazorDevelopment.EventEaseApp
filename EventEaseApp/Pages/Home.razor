@@ -1,7 +1,45 @@
 ﻿@page "/"
 
+@inject EventEaseApp.ParticipantService ParticipantService
+@inject EventEaseApp.ParticipantState ParticipantState
+
 <PageTitle>EventEase</PageTitle>
 
 <h1>Welcome to Event EventCard App</h1>
 
 <p>EventEase is a simple app to manage your events.</p>
+
+<h3>Select a Participant</h3>
+<select @onchange="OnParticipantSelected" class="form-control">
+    <option value="">-- Select a Participant --</option>
+    @foreach (var participant in participants)
+    {
+        <option value="@participant.Id">@participant.FirstName @participant.LastName</option>
+    }
+</select>
+
+@if (ParticipantState.SelectedParticipant != null)
+{
+    <h4>Participant Details</h4>
+    <p><strong>Name:</strong> @ParticipantState.SelectedParticipant.FirstName @ParticipantState.SelectedParticipant.LastName</p>
+    <p><strong>Email:</strong> @ParticipantState.SelectedParticipant.Email</p>
+    <p><strong>Phone Number:</strong> @ParticipantState.SelectedParticipant.PhoneNumber</p>
+}
+
+@code {
+    private List<Participant> participants;
+
+    protected override void OnInitialized()
+    {
+        participants = ParticipantService.GetParticipants().ToList();
+    }
+
+    private void OnParticipantSelected(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value.ToString(), out int selectedId))
+        {
+            var selectedParticipant = ParticipantService.GetParticipantById(selectedId);
+            ParticipantState.SetSelectedParticipant(selectedParticipant);
+        }
+    }
+}
