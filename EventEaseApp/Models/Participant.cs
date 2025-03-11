@@ -2,7 +2,7 @@
 
 namespace EventEaseApp
 {
-    public class Attendee
+    public class Participant
     {
         public int Id { get; set; }
         public string? FirstName { get; set; }

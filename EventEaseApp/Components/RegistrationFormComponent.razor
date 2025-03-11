@@ -1,23 +1,23 @@
 ﻿<section class="registration-form">
-    <EditForm Model="NewAttendee" OnValidSubmit="HandleValidSubmit">
+    <EditForm Model="NewParticipant" OnValidSubmit="HandleValidSubmit">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
         <div class="form-group">
             <label for="firstName">First Name:</label>
-            <InputText id="firstName" class="form-control" @bind-Value="NewAttendee.FirstName" />
+            <InputText id="firstName" class="form-control" @bind-Value="NewParticipant.FirstName" />
         </div>
         <div class="form-group">
             <label for="lastName">Last Name:</label>
-            <InputText id="lastName" class="form-control" @bind-Value="NewAttendee.LastName" />
+            <InputText id="lastName" class="form-control" @bind-Value="NewParticipant.LastName" />
         </div>
         <div class="form-group">
             <label for="email">Email:</label>
-            <InputText id="email" class="form-control" @bind-Value="NewAttendee.Email" />
+            <InputText id="email" class="form-control" @bind-Value="NewParticipant.Email" />
         </div>
         <div class="form-group">
             <label for="phoneNumber">Phone Number:</label>
-            <InputText id="phoneNumber" class="form-control" @bind-Value="NewAttendee.PhoneNumber" />
+            <InputText id="phoneNumber" class="form-control" @bind-Value="NewParticipant.PhoneNumber" />
         </div>
         <div class="d-flex justify-content-start">
             <button type="submit" class="btn btn-success btn-reg">Register</button>
@@ -30,23 +30,23 @@
     [Parameter]
     public Event? Event { get; set; }
 
-    private Attendee NewAttendee { get; set; } = new Attendee();
+    private Participant NewParticipant { get; set; } = new Participant();
     public bool isEditing { get; private set; }
 
     private void HandleValidSubmit()
     {
         if (Event != null)
         {
-            NewAttendee.IsRegistered = true;
-            NewAttendee.RegistrationDate = DateTime.Now;
-            Event.Attendees.Add(NewAttendee);
-            NewAttendee = new Attendee(); // Reset the form
+            NewParticipant.IsRegistered = true;
+            NewParticipant.RegistrationDate = DateTime.Now;
+            Event.Participants.Add(NewParticipant);
+            NewParticipant = new Participant(); // Reset the form
         }
     }
 
     private void ResetForm()
     {
-        NewAttendee = new Attendee();
+        NewParticipant = new Participant();
         isEditing = false;
     }
 }

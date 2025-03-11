@@ -6,21 +6,21 @@
 
     @if (!collapseList)
     {
-        @if (Event?.Attendees != null && Event.Attendees.Any())
+        @if (Event?.Participants != null && Event.Participants.Any())
         {
             <ul>
-                @foreach (var attendee in Event.Attendees)
+                @foreach (var participant in Event.Participants)
                 {
                     <li>
-                        <strong>Name:</strong> @attendee.FirstName @attendee.LastName <br />
-                        <strong>Email:</strong> @attendee.Email
+                        <strong>Name:</strong> @participant.FirstName @participant.LastName <br />
+                        <strong>Email:</strong> @participant.Email
                     </li>
                 }
             </ul>
         }
         else
         {
-            <p>No attendees found.</p>
+            <p>No participants found.</p>
         }
     }
 </section>

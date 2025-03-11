@@ -13,6 +13,6 @@ public class Event
         public string? Location { get; set; }
         public DateTime EndDate { get; set; }
         public DateTime CreatedAt { get; set; }
-        public List<Attendee> Attendees { get; set; } = new List<Attendee>();
+        public List<Participant> Participants { get; set; } = new List<Participant>();
 
 }
