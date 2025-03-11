@@ -1,21 +1,103 @@
 ﻿<article class="event-card">
-<h4>@Event.Name</h4>
-    <p>@Event.Description</p>
-    <p>Date: @Event.Date.ToString("MM/dd/yyyy")</p>
- 
- @if (DisplayShort){
-    <a href="/eventdetail/@Event.Id" class="btn btn-primary">View Details</a>
- } 
- else {
-    <p>Location: @Event.Location</p>
-    <p>EndDate: @Event.EndDate</p>
-    <p>CreatedAd: @Event.CreatedAt</p>
- } 
+    <EditForm Model="Event" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <h4>
+            @if (_isEditableEnabled)
+            {
+                <InputText @bind-Value="Event.Name" class="form-control" />
+            }
+            else
+            {
+                @Event.Name
+            }
+        </h4>
+        <p>
+            @if (_isEditableEnabled)
+            {
+                <InputTextArea @bind-Value="Event.Description" class="form-control" />
+            }
+            else
+            {
+                @Event.Description
+            }
+        </p>
+        <p>
+            <strong>Date:</strong>
+            @if (_isEditableEnabled)
+            {
+                <InputDate @bind-Value="Event.Date" class="form-control" />
+            }
+            else
+            {
+                @Event.Date.ToString("MM/dd/yyyy")
+            }
+        </p>
+        @if (DisplayShort)
+        {
+            <a href="/eventdetail/@Event.Id" class="btn btn-primary">View Details</a>
+        }
+        else
+        {
+            <p>
+                <strong>Location:</strong>
+                @if (_isEditableEnabled)
+                {
+                    <InputText @bind-Value="Event.Location" class="form-control" />
+                }
+                else
+                {
+                    @Event.Location
+                }
+            </p>
+            <p>
+                <strong>End Date:</strong>
+                @if (_isEditableEnabled)
+                {
+                    <InputDate @bind-Value="Event.EndDate" class="form-control" />
+                }
+                else
+                {
+                    @Event.EndDate
+                }
+            </p>
+            <p><strong>Created At:</strong> @Event.CreatedAt</p>
+        }
+        @if (_isEditableEnabled)
+        {
+            <button type="submit" class="btn btn-success">Submit</button>
+        }
+    </EditForm>
+    @if (IsEditable && !_isEditableEnabled)
+    {
+        <button @onclick="EnableEdit" class="btn btn-secondary">Edit</button>
+    }
+
 
 </article>
+
 @code {
-    [Parameter]
-    public bool DisplayShort { get; set; }
+
     [Parameter]
     public Event Event { get; set; }
+   
+   [Parameter]
+    public bool DisplayShort { get; set; }
+   
+    [Parameter]
+    public bool IsEditable { get; set; }
+
+   private bool _isEditableEnabled = false;
+
+   private void HandleValidSubmit()
+    {
+        // Handle the form submission, e.g., save the event data
+        Console.WriteLine("Form submitted successfully!");
+         _isEditableEnabled = false;
+    }
+    private void EnableEdit()
+    {
+        _isEditableEnabled = IsEditable; 
+    }
 }
