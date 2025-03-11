@@ -1,5 +1,4 @@
-﻿<h3>Register</h3>
-<EditForm Model="NewAttendee" OnValidSubmit="HandleValidSubmit">
+﻿<EditForm Model="NewAttendee" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -19,13 +18,19 @@
         <label for="phoneNumber">Phone Number:</label>
         <InputText id="phoneNumber" class="form-control" @bind-Value="NewAttendee.PhoneNumber" />
     </div>
-    <button type="submit" class="btn btn-success">Register</button>
+    <div class="d-flex justify-content-start">
+        <button type="submit" class="btn btn-success mr-2">Register</button>
+        <button type="button" class="btn btn-secondary" @onclick="ResetForm">Reset</button>
+    </div>
 </EditForm>
 
 @code {
     [Parameter]
     public Event? Event { get; set; }
+
     private Attendee NewAttendee { get; set; } = new Attendee();
+    public bool isEditing { get; private set; }
+
     private void HandleValidSubmit()
     {
         if (Event != null)
@@ -36,4 +41,20 @@
             NewAttendee = new Attendee(); // Reset the form
         }
     }
+
+    private void ResetForm()
+    {
+        NewAttendee = new Attendee();
+        isEditing = false;
+    }
 }
+    using System.Dynamic;
+
+#line default
+#line hidden
+#nullable disable
+    using System.Dynamic;
+
+#line default
+#line hidden
+#nullable disable

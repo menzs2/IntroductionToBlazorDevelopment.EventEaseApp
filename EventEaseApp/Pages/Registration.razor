@@ -4,11 +4,12 @@
 
 @if (Id.HasValue && Event != null)
 {
+    <NavLink href="/events" class="btn btn-primary" disabled="@registrationFormComponent?.IsEditing">Back to Events</NavLink>
     <h4>Registration for @Event.Name</h4>
     <p><strong>Date:</strong> @Event.Date.ToString("MMMM dd, yyyy")</p>
     <p><strong>Description:</strong> @Event.Description</p>
     
-    <RegistrationFormComponent Event="Event" />
+    <RegistrationFormComponent @ref="registrationFormComponent" Event="Event" />
     <AttendeeListComponent Event="Event" />
 }
 else
@@ -28,7 +29,7 @@ else
     [Parameter]
     public int? Id { get; set; }
     private Event Event { get; set; }
-
+    private RegistrationFormComponent registrationFormComponent
     protected override async Task OnInitializedAsync()
     {
         await EventService.LoadEventsAsync();
