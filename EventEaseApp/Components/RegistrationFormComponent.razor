@@ -1,4 +1,5 @@
-﻿<section class="registration-form">
+﻿ @inject ParticipantService ParticipantService
+<section class="registration-form">
     <EditForm Model="NewParticipant" OnValidSubmit="HandleValidSubmit">
         <DataAnnotationsValidator />
         <ValidationSummary />
@@ -27,21 +28,17 @@
 </section>
 
 @code {
-    [Parameter]
-    public Event? Event { get; set; }
 
     private Participant NewParticipant { get; set; } = new Participant();
     public bool isEditing { get; private set; }
 
     private void HandleValidSubmit()
     {
-        if (Event != null)
-        {
+            NewParticipant.Id = ParticipantService.GetNewParticipantId();
             NewParticipant.IsRegistered = true;
             NewParticipant.RegistrationDate = DateTime.Now;
-            Event.Participants.Add(NewParticipant);
+            ParticipantService.AddParticipant(NewParticipant);
             NewParticipant = new Participant(); // Reset the form
-        }
     }
 
     private void ResetForm()

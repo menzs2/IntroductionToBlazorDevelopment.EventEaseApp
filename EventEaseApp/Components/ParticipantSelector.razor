@@ -2,7 +2,7 @@
 @inject EventEaseApp.ParticipantState ParticipantState
 
 <h3>Select a Participant</h3>
-<select @onchange="OnParticipantSelected" class="form-control">
+<select @bind="selectedParticipantId"  class="form-control">
     <option value="">-- Select a Participant --</option>
     @foreach (var participant in participants)
     {
@@ -12,10 +12,15 @@
 
 @code {
     private List<Participant> participants;
+    private int? selectedParticipantId;
 
     protected override void OnInitialized()
     {
         participants = ParticipantService.GetParticipants().ToList();
+        if (ParticipantState.SelectedParticipant != null)
+        {
+            selectedParticipantId = ParticipantState.SelectedParticipant.Id;
+        }
     }
 
     private void OnParticipantSelected(ChangeEventArgs e)

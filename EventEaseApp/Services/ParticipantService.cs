@@ -39,4 +39,6 @@
                 participant.PhoneNumber = updatedParticipant.PhoneNumber;
             }
         }
+
+        public int GetNewParticipantId() => participants.Any() ? participants.Max(p => p.Id) + 1 : 1;
     }

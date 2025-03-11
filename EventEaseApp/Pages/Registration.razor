@@ -1,55 +1,11 @@
-﻿@page "/registration/{Id:int?}"
+﻿@page "/registration"
 @using EventEaseApp.Components
 @inject EventService EventService;
-@inject NavigationManager NavigationManager;
+<h3>Register new Participant</h3>
 
-@if (Id.HasValue && Event != null)
-{
-    <button @onclick="NavigateToEventDetail" class="btn btn-primary" disabled="@registrationFormComponent?.isEditing">Back to Events</button>
-    <h4>Registration for @Event.Name</h4>
-    <p><strong>Date:</strong> @Event.Date.ToString("MMMM dd, yyyy")</p>
-    <p><strong>Description:</strong> @Event.Description</p>
-    
-    <RegistrationFormComponent @ref="registrationFormComponent" Event="Event" />
-}
-else
-{
-    <h4>Registration</h4>
-    <label for="eventSelect">Select an Event:</label>
-    <select id="eventSelect" @onchange="OnEventSelected">
-        <option value="">-- Select an Event --</option>
-        @foreach (var evt in EventService.Events)
-        {
-            <option value="@evt.Id">@evt.Name</option>
-        }
-    </select>
-}
+<RegistrationFormComponent></RegistrationFormComponent>
+<ParticipantListComponent></ParticipantListComponent>
 
 @code {
-    [Parameter]
-    public int? Id { get; set; }
-    private Event Event { get; set; }
-    private RegistrationFormComponent? registrationFormComponent;
-    protected override async Task OnInitializedAsync()
-    {
-        await EventService.LoadEventsAsync();
-        if (Id.HasValue)
-        {
-            Event = EventService.Events?.FirstOrDefault(e => e.Id == Id);
-        }
-    }
-
-    private void OnEventSelected(ChangeEventArgs e)
-    {
-        if (int.TryParse(e.Value.ToString(), out int selectedId))
-        {
-            Id = selectedId;
-            Event = EventService.Events.FirstOrDefault(evt => evt.Id == Id);
-        }
-    }
-
-    private void NavigateToEventDetail()
-    {
-        NavigationManager.NavigateTo($"/eventdetail/{Event.Id}");
-    }
+    
 }

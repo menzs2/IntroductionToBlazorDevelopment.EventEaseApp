@@ -1,4 +1,9 @@
-﻿<article class="event-card">
+﻿@inject EventService EventService
+@inject ParticipantService ParticipantService   
+@inject ParticipantState ParticipantState
+
+<article class="event-card">
+    
     <EditForm Model="Event" OnValidSubmit="HandleValidSubmit">
         <DataAnnotationsValidator />
         <ValidationSummary />
@@ -76,10 +81,14 @@
             <button type="submit" class="btn btn-success">Submit</button>
         }
     </EditForm>
+    
+    
 
-    @if (!DisplayShort && !IsEditableEnabled)
+    @if (ParticipantState.SelectedParticipant != null)
     {
-        <a href="/registration/@Event.Id" class="btn btn-primary">Register Attendees</a>
+        <button @onclick="ToggleParticipantSignIn" class="btn btn-primary mt-2">
+            @(IsParticipantSignedIn() ? "Sign Out" : "Sign In")
+        </button>
     }
     @if (!DisplayShort)
     {
@@ -109,5 +118,27 @@
     private void EnableEdit()
     {
         IsEditableEnabled = true;
+    }
+
+    private void ToggleParticipantSignIn()
+    {
+        var participant = ParticipantState.SelectedParticipant;
+        if (participant != null)
+        {
+            if (IsParticipantSignedIn())
+            {
+                Event.Participants.Remove(participant);
+            }
+            else
+            {
+                Event.Participants.Add(participant);
+            }
+        }
+    }
+
+    private bool IsParticipantSignedIn()
+    {
+        var participant = ParticipantState.SelectedParticipant;
+        return participant != null && Event.Participants.Contains(participant);
     }
 }
