@@ -1,4 +1,5 @@
-﻿<EditForm Model="NewAttendee" OnValidSubmit="HandleValidSubmit">
+﻿<section="registration-form">
+<EditForm Model="NewAttendee" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -23,7 +24,7 @@
         <button type="button" class="btn btn-secondary btn-reg" @onclick="ResetForm">Reset</button>
     </div>
 </EditForm>
-
+</section>
 @code {
     [Parameter]
     public Event? Event { get; set; }
