@@ -1,9 +1,11 @@
-﻿<h3>@Event.Name</h3>
+﻿<article class="event-card">
+
+<h3>@Event.Name</h3>
 <p><strong>Date:</strong> @Event.Date.ToString("MMMM dd, yyyy")</p>
 <p><strong>Description:</strong> @Event.Description</p>
 
 <a href="/eventdetail/@Event.Id" class="btn btn-primary">View Details</a>
-
+</article>
 @code {
     [Parameter]
     public Event Event { get; set; }
