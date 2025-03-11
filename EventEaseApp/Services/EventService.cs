@@ -5,10 +5,11 @@ public class EventService
 
     public List<Event> Events { get; set; } = new List<Event>();
 
-    public void LoadEvents()
+    public async Task LoadEventsAsync()
     {
         Events = new List<Event>();
-        for (int i = 1; i <= 10; i++)
+        await Task.Delay(2);
+        for (int i = 1; i <= 50; i++)
         {
             Events.Add(new Event
             {

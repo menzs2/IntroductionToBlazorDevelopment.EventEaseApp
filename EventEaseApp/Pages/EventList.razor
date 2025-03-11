@@ -1,6 +1,7 @@
 ﻿@page "/events"
 @inject EventService EventService;
 @using EventEaseApp.Components
+@using Microsoft.AspNetCore.Components.Web.Virtualization
 
 <h3>EventList</h3>
 @if (EventService.Events == null)
@@ -13,15 +14,16 @@ else if (EventService.Events.Count == 0)
 }
 else
 {
-    @foreach (var e in EventService.Events)
-    {
-        <EventCard Event=e />
-    }
+    <Virtualize Items="@EventService.Events" ItemSize="50">
+        <ItemContent Context="e">
+            <EventCard Event="e" />
+        </ItemContent>
+    </Virtualize>
 }
 
 @code {
     protected override async Task OnInitializedAsync()
     {
-       EventService.LoadEvents();
+        await EventService.LoadEventsAsync();
     }
 }
