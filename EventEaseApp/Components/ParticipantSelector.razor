@@ -1,0 +1,29 @@
+﻿@inject EventEaseApp.ParticipantService ParticipantService
+@inject EventEaseApp.ParticipantState ParticipantState
+
+<h3>Select a Participant</h3>
+<select @onchange="OnParticipantSelected" class="form-control">
+    <option value="">-- Select a Participant --</option>
+    @foreach (var participant in participants)
+    {
+        <option value="@participant.Id">@participant.FirstName @participant.LastName</option>
+    }
+</select>
+
+@code {
+    private List<Participant> participants;
+
+    protected override void OnInitialized()
+    {
+        participants = ParticipantService.GetParticipants().ToList();
+    }
+
+    private void OnParticipantSelected(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value.ToString(), out int selectedId))
+        {
+            var selectedParticipant = ParticipantService.GetParticipantById(selectedId);
+            ParticipantState.SetSelectedParticipant(selectedParticipant);
+        }
+    }
+}
