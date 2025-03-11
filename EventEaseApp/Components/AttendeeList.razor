@@ -1,0 +1,29 @@
+<h4 @onclick="CollapseList">Attendees</h4>
+@if (!collapseList)
+{
+    @if (Event?.Attendees != null && Event.Attendees.Any())
+    {
+        <ul>
+            @foreach (var attendee in Event.Attendees)
+            {
+                <li>
+                    <strong>Name:</strong> @attendee.FirstName @attendee.LastName <br />
+                    <strong>Email:</strong> @attendee.Email
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No attendees found.</p>
+    }
+}
+@code {
+    private bool collapseList = true;
+    private Event Event { get; set; }
+
+    private void CollapseList()
+    {
+        collapseList = !collapseList;
+    }
+}

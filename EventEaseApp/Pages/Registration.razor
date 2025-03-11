@@ -30,7 +30,7 @@ else
         await EventService.LoadEventsAsync();
         if (Id.HasValue)
         {
-            Event = EventService.Events.FirstOrDefault(e => e.Id == Id);
+            Event = EventService.Events?.FirstOrDefault(e => e.Id == Id);
         }
     }
 

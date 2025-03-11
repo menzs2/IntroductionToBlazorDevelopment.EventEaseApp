@@ -1,4 +1,5 @@
-﻿<article class="event-card">
+﻿
+<article class="event-card">
     <EditForm Model="Event" OnValidSubmit="HandleValidSubmit">
         <DataAnnotationsValidator />
         <ValidationSummary />
@@ -72,6 +73,10 @@
     @if (IsEditable && !IsEditableEnabled)
     {
         <button @onclick="EnableEdit" class="btn btn-secondary">Edit</button>
+    }
+    @if(!DisplayShort && Event?.Attendees != null && Event.Attendees.Any())
+    {
+        <AttendeeList Event="Event" />
     }
 </article>
 
