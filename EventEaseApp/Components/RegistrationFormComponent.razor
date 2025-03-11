@@ -1,0 +1,39 @@
+﻿<h3>Register</h3>
+<EditForm Model="NewAttendee" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <InputText id="firstName" class="form-control" @bind-Value="NewAttendee.FirstName" />
+    </div>
+    <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <InputText id="lastName" class="form-control" @bind-Value="NewAttendee.LastName" />
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <InputText id="email" class="form-control" @bind-Value="NewAttendee.Email" />
+    </div>
+    <div class="form-group">
+        <label for="phoneNumber">Phone Number:</label>
+        <InputText id="phoneNumber" class="form-control" @bind-Value="NewAttendee.PhoneNumber" />
+    </div>
+    <button type="submit" class="btn btn-success">Register</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public Event? Event { get; set; }
+    private Attendee NewAttendee { get; set; } = new Attendee();
+    private void HandleValidSubmit()
+    {
+        if (Event != null)
+        {
+            NewAttendee.IsRegistered = true;
+            NewAttendee.RegistrationDate = DateTime.Now;
+            Event.Attendees.Add(NewAttendee);
+            NewAttendee = new Attendee(); // Reset the form
+        }
+    }
+}

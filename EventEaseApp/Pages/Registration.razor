@@ -1,4 +1,5 @@
 ﻿@page "/registration/{Id:int?}"
+@using EventEaseApp.Components
 @inject EventService EventService;
 
 @if (Id.HasValue && Event != null)
@@ -6,6 +7,9 @@
     <h4>Registration for @Event.Name</h4>
     <p><strong>Date:</strong> @Event.Date.ToString("MMMM dd, yyyy")</p>
     <p><strong>Description:</strong> @Event.Description</p>
+    
+    <RegistrationFormComponent Event="Event" />
+    <AttendeeListComponent Event="Event" />
 }
 else
 {

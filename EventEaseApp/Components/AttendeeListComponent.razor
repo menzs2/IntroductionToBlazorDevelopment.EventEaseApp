@@ -20,7 +20,8 @@
 }
 @code {
     private bool collapseList = true;
-    private Event Event { get; set; }
+    [Parameter]
+    public Event Event { get; set; } = new Event();
 
     private void CollapseList()
     {

@@ -1,19 +1,25 @@
-﻿
-<article class="event-card">
+﻿<article>
     <EditForm Model="Event" OnValidSubmit="HandleValidSubmit">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
-        <h4>
-            @if (IsEditableEnabled)
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">
+                @if (IsEditableEnabled)
+                {
+                    <InputText @bind-Value="Event.Name" class="form-control" />
+                }
+                else
+                {
+                    @Event.Name
+                }
+            </h4>
+            @if (IsEditable && !IsEditableEnabled)
             {
-                <InputText @bind-Value="Event.Name" class="form-control" />
+                <button @onclick="EnableEdit" class="btn btn-secondary ml-2">Edit</button>
             }
-            else
-            {
-                @Event.Name
-            }
-        </h4>
+        </div>
+
         <p>
             @if (IsEditableEnabled)
             {
@@ -70,13 +76,14 @@
             <button type="submit" class="btn btn-success">Submit</button>
         }
     </EditForm>
-    @if (IsEditable && !IsEditableEnabled)
+
+    @if (!DisplayShort && !IsEditableEnabled)
     {
-        <button @onclick="EnableEdit" class="btn btn-secondary">Edit</button>
+        <a href="/registration/@Event.Id" class="btn btn-primary">Register Attendees</a>
     }
-    @if(!DisplayShort && Event?.Attendees != null && Event.Attendees.Any())
+    @if (!DisplayShort)
     {
-        <AttendeeList Event="Event" />
+        <AttendeeListComponent Event="Event" />
     }
 </article>
 
