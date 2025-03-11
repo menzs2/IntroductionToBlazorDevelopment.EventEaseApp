@@ -1,0 +1,45 @@
+﻿@page "/registration/{Id:int?}"
+@inject EventService EventService;
+
+@if (Id.HasValue && Event != null)
+{
+    <h4>Registration for @Event.Name</h4>
+    <p><strong>Date:</strong> @Event.Date.ToString("MMMM dd, yyyy")</p>
+    <p><strong>Description:</strong> @Event.Description</p>
+}
+else
+{
+    <h4>Registration</h4>
+    <label for="eventSelect">Select an Event:</label>
+    <select id="eventSelect" @onchange="OnEventSelected">
+        <option value="">-- Select an Event --</option>
+        @foreach (var evt in EventService.Events)
+        {
+            <option value="@evt.Id">@evt.Name</option>
+        }
+    </select>
+}
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+    private Event Event { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await EventService.LoadEventsAsync();
+        if (Id.HasValue)
+        {
+            Event = EventService.Events.FirstOrDefault(e => e.Id == Id);
+        }
+    }
+
+    private void OnEventSelected(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value.ToString(), out int selectedId))
+        {
+            Id = selectedId;
+            Event = EventService.Events.FirstOrDefault(evt => evt.Id == Id);
+        }
+    }
+}

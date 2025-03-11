@@ -4,10 +4,13 @@ public class EventService
 {
 
     public List<Event> Events { get; set; } = new List<Event>();
-
+    private bool _isInitialized;
     public async Task LoadEventsAsync()
     {
-        Events = new List<Event>();
+        if (_isInitialized)
+        {
+            return;
+        }
         await Task.Delay(2);
         for (int i = 1; i <= 50; i++)
         {
@@ -22,6 +25,7 @@ public class EventService
                 CreatedAt = DateTime.Now
             });
         }
+        _isInitialized = true;
     }
 
     public void AddEvent(Event newEvent)
