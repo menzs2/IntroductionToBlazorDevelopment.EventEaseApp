@@ -1,17 +1,10 @@
 ﻿@page "/eventdetail/{Id:int}"
 @using System.Text.RegularExpressions
+@using EventEaseApp.Components
 @inject EventService EventService;
 @inject NavigationManager NavigationManager;
 
-<h3>EventDetail</h3>
-<div>
-    <h4>@Event.Name</h4>
-    <p>@Event.Description</p>
-    <p>Date: @Event.Date.ToString("MM/dd/yyyy")</p>
-    <p>Location: @Event.Location</p>
-    <p>EndDate: @Event.EndDate</p>
-    <p>CreatedAd: @Event.CreatedAt</p>
-</div>
+<EventCard Event="Event" DisplayShort="false" />
 
 @code {
 

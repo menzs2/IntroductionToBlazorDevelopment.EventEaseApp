@@ -1,12 +1,21 @@
 ﻿<article class="event-card">
+<h4>@Event.Name</h4>
+    <p>@Event.Description</p>
+    <p>Date: @Event.Date.ToString("MM/dd/yyyy")</p>
+ 
+ @if (DisplayShort){
+    <a href="/eventdetail/@Event.Id" class="btn btn-primary">View Details</a>
+ } 
+ else {
+    <p>Location: @Event.Location</p>
+    <p>EndDate: @Event.EndDate</p>
+    <p>CreatedAd: @Event.CreatedAt</p>
+ } 
 
-<h3>@Event.Name</h3>
-<p><strong>Date:</strong> @Event.Date.ToString("MMMM dd, yyyy")</p>
-<p><strong>Description:</strong> @Event.Description</p>
-
-<a href="/eventdetail/@Event.Id" class="btn btn-primary">View Details</a>
 </article>
 @code {
+    [Parameter]
+    public bool DisplayShort { get; set; }
     [Parameter]
     public Event Event { get; set; }
 }
