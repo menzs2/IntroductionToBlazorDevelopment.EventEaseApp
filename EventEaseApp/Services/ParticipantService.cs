@@ -56,6 +56,7 @@ public class ParticipantService
 
     private void GenerateRandomParticipants()
     {
+        //Generate some participants  - this is just for testing purposes. A real app would get this data from a database
         participants.Add(new Participant
         {
             Id = GetNewParticipantId(),
@@ -103,6 +104,22 @@ public class ParticipantService
             FirstName = "André",
             LastName = "Masséna",
             Email = "a.massena@napoleonsmarchals.fr"
+        });
+
+        participants.Add(new Participant
+        {
+            Id = GetNewParticipantId(),
+            FirstName = "Jean-de-Dieu",
+            LastName = "Soult",
+            Email = "j.soult@napoleonsmarchals.fr"
+        });
+
+        participants.Add(new Participant
+        {
+            Id = GetNewParticipantId(),
+            FirstName = "Pierre",
+            LastName = "Augereau",
+            Email = "p.augereau@napoleonsmarchals.fr"
         });
     }
 }
