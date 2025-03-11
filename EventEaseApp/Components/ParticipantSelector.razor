@@ -2,7 +2,7 @@
 @inject EventEaseApp.ParticipantState ParticipantState
 
 <h3>Select a Participant</h3>
-<select @bind="selectedParticipantId" class="form-control">
+<select @bind="SelectedParticipantId" class="form-control">
     <option value="">-- Select a Participant --</option>
     @foreach (var participant in ParticipantService.GetParticipants())
     {
