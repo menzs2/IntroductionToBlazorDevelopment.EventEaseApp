@@ -4,7 +4,7 @@
         <ValidationSummary />
 
         <h4>
-            @if (_isEditableEnabled)
+            @if (IsEditableEnabled)
             {
                 <InputText @bind-Value="Event.Name" class="form-control" />
             }
@@ -14,7 +14,7 @@
             }
         </h4>
         <p>
-            @if (_isEditableEnabled)
+            @if (IsEditableEnabled)
             {
                 <InputTextArea @bind-Value="Event.Description" class="form-control" />
             }
@@ -25,7 +25,7 @@
         </p>
         <p>
             <strong>Date:</strong>
-            @if (_isEditableEnabled)
+            @if (IsEditableEnabled)
             {
                 <InputDate @bind-Value="Event.Date" class="form-control" />
             }
@@ -42,7 +42,7 @@
         {
             <p>
                 <strong>Location:</strong>
-                @if (_isEditableEnabled)
+                @if (IsEditableEnabled)
                 {
                     <InputText @bind-Value="Event.Location" class="form-control" />
                 }
@@ -53,7 +53,7 @@
             </p>
             <p>
                 <strong>End Date:</strong>
-                @if (_isEditableEnabled)
+                @if (IsEditableEnabled)
                 {
                     <InputDate @bind-Value="Event.EndDate" class="form-control" />
                 }
@@ -64,40 +64,38 @@
             </p>
             <p><strong>Created At:</strong> @Event.CreatedAt</p>
         }
-        @if (_isEditableEnabled)
+        @if (IsEditableEnabled)
         {
             <button type="submit" class="btn btn-success">Submit</button>
         }
     </EditForm>
-    @if (IsEditable && !_isEditableEnabled)
+    @if (IsEditable && !IsEditableEnabled)
     {
         <button @onclick="EnableEdit" class="btn btn-secondary">Edit</button>
     }
-
-
 </article>
 
 @code {
-
     [Parameter]
     public Event Event { get; set; }
-   
-   [Parameter]
+
+    [Parameter]
     public bool DisplayShort { get; set; }
-   
+
     [Parameter]
     public bool IsEditable { get; set; }
 
-   private bool _isEditableEnabled = false;
+    private bool IsEditableEnabled { get; set; }
 
-   private void HandleValidSubmit()
+    private void HandleValidSubmit()
     {
         // Handle the form submission, e.g., save the event data
         Console.WriteLine("Form submitted successfully!");
-         _isEditableEnabled = false;
+        IsEditableEnabled = false;
     }
+
     private void EnableEdit()
     {
-        _isEditableEnabled = IsEditable; 
+        IsEditableEnabled = true;
     }
 }
