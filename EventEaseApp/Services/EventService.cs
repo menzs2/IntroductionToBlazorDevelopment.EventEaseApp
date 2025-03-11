@@ -12,6 +12,22 @@ public class EventService
             return;
         }
         await Task.Delay(2);
+        GenerateRandomEvents();
+        _isInitialized = true;
+    }
+
+    public void AddEvent(Event newEvent)
+    {
+        Events.Add(newEvent);
+    }
+
+    public void RemoveEvent(Event eventToRemove)
+    {
+        Events.Remove(eventToRemove);
+    }
+
+    private void GenerateRandomEvents()
+    {
         for (int i = 1; i <= 50; i++)
         {
             Events.Add(new Event
@@ -25,16 +41,5 @@ public class EventService
                 CreatedAt = DateTime.Now
             });
         }
-        _isInitialized = true;
-    }
-
-    public void AddEvent(Event newEvent)
-    {
-        Events.Add(newEvent);
-    }
-
-    public void RemoveEvent(Event eventToRemove)
-    {
-        Events.Remove(eventToRemove);
     }
 }

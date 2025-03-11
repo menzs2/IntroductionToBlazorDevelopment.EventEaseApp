@@ -2,33 +2,41 @@
 @inject EventEaseApp.ParticipantState ParticipantState
 
 <h3>Select a Participant</h3>
-<select @bind="selectedParticipantId"  class="form-control">
+<select @bind="selectedParticipantId" class="form-control">
     <option value="">-- Select a Participant --</option>
-    @foreach (var participant in participants)
+    @foreach (var participant in ParticipantService.GetParticipants())
     {
         <option value="@participant.Id">@participant.FirstName @participant.LastName</option>
     }
 </select>
 
 @code {
-    private List<Participant> participants;
     private int? selectedParticipantId;
 
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
-        participants = ParticipantService.GetParticipants().ToList();
+        await ParticipantService.LoadParticipantsAsync();
         if (ParticipantState.SelectedParticipant != null)
         {
             selectedParticipantId = ParticipantState.SelectedParticipant.Id;
         }
     }
 
-    private void OnParticipantSelected(ChangeEventArgs e)
+    private int? SelectedParticipantId
     {
-        if (int.TryParse(e.Value.ToString(), out int selectedId))
+        get => selectedParticipantId;
+        set
         {
-            var selectedParticipant = ParticipantService.GetParticipantById(selectedId);
-            ParticipantState.SetSelectedParticipant(selectedParticipant);
+            selectedParticipantId = value;
+            if (selectedParticipantId.HasValue)
+            {
+                var selectedParticipant = ParticipantService.GetParticipantById(selectedParticipantId.Value);
+                ParticipantState.SetSelectedParticipant(selectedParticipant);
+            }
+            else
+            {
+                ParticipantState.SetSelectedParticipant(null);
+            }
         }
     }
 }
