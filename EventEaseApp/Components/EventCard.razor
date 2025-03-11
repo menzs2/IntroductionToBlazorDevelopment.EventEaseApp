@@ -1,14 +1,8 @@
-﻿<h3>@EventName</h3>
-<p><strong>Date:</strong> @EventDate.ToString("MMMM dd, yyyy")</p>
-<p><strong>Description:</strong> @EventDescription</p>
+﻿<h3>@Event.Name</h3>
+<p><strong>Date:</strong> @Event.Date.ToString("MMMM dd, yyyy")</p>
+<p><strong>Description:</strong> @Event.Description</p>
 
 @code {
     [Parameter]
-    public string EventName { get; set; }
-
-    [Parameter]
-    public DateTime EventDate { get; set; }
-
-    [Parameter]
-    public string EventDescription { get; set; }
+    public Event Event { get; set; }
 }

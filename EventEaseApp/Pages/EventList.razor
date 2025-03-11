@@ -1,5 +1,29 @@
-﻿<h3>EventList</h3>
+﻿@page "/events"
+@using EventEaseApp.Components
 
+<h3>EventList</h3>
+@foreach (var e in events)
+{
+    <EventCard Event=e />
+}   
 @code {
+    private List<Event> events = new List<Event>();
 
+    private void LoadEvents()
+    {
+        events = new List<Event>();
+        for (int i = 1; i <= 10; i++)
+        {
+            events.Add(new Event
+            {
+                Name = $"Event {i}",
+                Date = DateTime.Now.AddDays(i),
+                Description = $"Description for event {i}"
+            });
+        }
+    }
+    protected override void OnInitialized()
+    {
+        LoadEvents();
+    }
 }
