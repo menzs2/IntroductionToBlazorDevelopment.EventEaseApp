@@ -1,10 +1,11 @@
 ﻿@page "/registration/{Id:int?}"
 @using EventEaseApp.Components
 @inject EventService EventService;
+@inject NavigationManager NavigationManager;
 
 @if (Id.HasValue && Event != null)
 {
-    <NavLink href="/events" class="btn btn-primary" disabled="@registrationFormComponent?.IsEditing">Back to Events</NavLink>
+    <button @onclick="NavigateToEventDetail" class="btn btn-primary" disabled="@registrationFormComponent?.isEditing">Back to Events</button>
     <h4>Registration for @Event.Name</h4>
     <p><strong>Date:</strong> @Event.Date.ToString("MMMM dd, yyyy")</p>
     <p><strong>Description:</strong> @Event.Description</p>
@@ -29,7 +30,7 @@ else
     [Parameter]
     public int? Id { get; set; }
     private Event Event { get; set; }
-    private RegistrationFormComponent registrationFormComponent
+    private RegistrationFormComponent? registrationFormComponent;
     protected override async Task OnInitializedAsync()
     {
         await EventService.LoadEventsAsync();
@@ -46,5 +47,10 @@ else
             Id = selectedId;
             Event = EventService.Events.FirstOrDefault(evt => evt.Id == Id);
         }
+    }
+
+    private void NavigateToEventDetail()
+    {
+        NavigationManager.NavigateTo($"/eventdetail/{Event.Id}");
     }
 }
