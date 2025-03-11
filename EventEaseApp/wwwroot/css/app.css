@@ -15,7 +15,7 @@ a, .btn-link {
     background-color: #1b6ec2;
     border-color: #1861ac;
 }
-.btn-success{
+.btn-reg{
     margin-top: 10px;
 }
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
