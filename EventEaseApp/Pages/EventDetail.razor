@@ -2,17 +2,17 @@
 @using EventEaseApp.Components
 @inject EventService EventService;
 
-<EventCard Event="Event" DisplayShort="false" IsEditable ="true"/>
+<EventCard EventModel="EventModel" DisplayShort="false" IsEditable ="true"/>
 
 @code {
 
     [Parameter]
     public int Id { get; set; }
-    private Event? Event { get; set; }
+    private EventModel EventModel { get; set; } = new EventModel();
 
     protected override async Task OnInitializedAsync()
     {
         await Task.Delay(100); // Simulate an async operation
-        Event = EventService.Events.FirstOrDefault(e => e.Id == Id) ?? new Event();
+        EventModel = EventService.Events?.FirstOrDefault(e => e.Id == Id) ?? new EventModel();
     }
 }

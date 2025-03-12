@@ -3,7 +3,7 @@
 public class EventService
 {
 
-    public List<Event> Events { get; set; } = new List<Event>();
+    public List<EventModel> Events { get; set; } = new List<EventModel>();
     private bool _isInitialized;
     public async Task LoadEventsAsync()
     {
@@ -16,12 +16,12 @@ public class EventService
         _isInitialized = true;
     }
 
-    public void AddEvent(Event newEvent)
+    public void AddEvent(EventModel newEvent)
     {
         Events.Add(newEvent);
     }
 
-    public void RemoveEvent(Event eventToRemove)
+    public void RemoveEvent(EventModel eventToRemove)
     {
         Events.Remove(eventToRemove);
     }
@@ -30,7 +30,7 @@ public class EventService
     {
         for (int i = 1; i <= 50; i++)
         {
-            Events.Add(new Event
+            Events.Add(new EventModel
             {
                 Id = i,
                 Name = $"Event {i}",

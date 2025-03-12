@@ -5,7 +5,7 @@
 
 <article class="event-card">
 
-    <EditForm Model="Event" OnValidSubmit="HandleValidSubmit">
+    <EditForm Model="EventModel" OnValidSubmit="HandleValidSubmit">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
@@ -13,11 +13,11 @@
             <h4 class="mb-0">
                 @if (isEditing)
                 {
-                    <InputText @bind-Value="Event.Name" class="form-control" />
+                    <InputText @bind-Value="EventModel.Name" class="form-control" />
                 }
                 else
                 {
-                    @Event.Name
+                    @EventModel.Name
                 }
             </h4>
             @if (IsEditable && !isEditing)
@@ -29,27 +29,27 @@
         <p>
             @if (isEditing)
             {
-                <InputTextArea @bind-Value="Event.Description" class="form-control" />
+                <InputTextArea @bind-Value="EventModel.Description" class="form-control" />
             }
             else
             {
-                @Event.Description
+                @EventModel.Description
             }
         </p>
         <p>
             <strong>Date:</strong>
             @if (isEditing)
             {
-                <InputDate @bind-Value="Event.Date" class="form-control" />
+                <InputDate @bind-Value="EventModel.Date" class="form-control" />
             }
             else
             {
-                @Event.Date.ToString("MM/dd/yyyy")
+                @EventModel.Date.ToString("MM/dd/yyyy")
             }
         </p>
         @if (DisplayShort)
         {
-            <a href="/eventdetail/@Event.Id" class="btn btn-primary">View Details</a>
+            <a href="/eventdetail/@EventModel.Id" class="btn btn-primary">View Details</a>
         }
         else
         {
@@ -57,25 +57,25 @@
                 <strong>Location:</strong>
                 @if (isEditing)
                 {
-                    <InputText @bind-Value="Event.Location" class="form-control" />
+                    <InputText @bind-Value="EventModel.Location" class="form-control" />
                 }
                 else
                 {
-                    @Event.Location
+                    @EventModel.Location
                 }
             </p>
             <p>
                 <strong>End Date:</strong>
                 @if (isEditing)
                 {
-                    <InputDate @bind-Value="Event.EndDate" class="form-control" />
+                    <InputDate @bind-Value="EventModel.EndDate" class="form-control" />
                 }
                 else
                 {
-                    @Event.EndDate
+                    @EventModel.EndDate
                 }
             </p>
-            <p><strong>Created At:</strong> @Event.CreatedAt</p>
+            <p><strong>Created At:</strong> @EventModel.CreatedAt</p>
         }
         @if (isEditing)
         {
@@ -91,13 +91,13 @@
     }
     @if (!DisplayShort)
     {
-        <ParticipantListComponent Event="Event" />
+        <ParticipantListComponent EventModel="EventModel" />
     }
 </article>
 
 @code {
     [Parameter]
-    public Event Event { get; set; } = new Event();
+    public EventModel EventModel { get; set; } = new EventModel();
 
     [Parameter]
     public bool DisplayShort { get; set; }
@@ -133,11 +133,11 @@
             Logger.LogInformation("Participant: {Participant}", participant);
             if (IsParticipantSignedIn())
             {
-                Event.Participants.Remove(participant);
+                EventModel.Participants.Remove(participant);
             }
             else
             {
-                Event.Participants.Add(participant);
+                EventModel.Participants.Add(participant);
             }
         }
     }
@@ -146,8 +146,8 @@
     {
         var participant = ParticipantState.SelectedParticipant;
         Logger.LogInformation("Checking if participant is signed in: {Participant}", participant.LastName);
-        var result = participant != null && Event.Participants.Any() && Event.Participants.Contains(participant);
+        var result = participant != null && EventModel.Participants.Any() && EventModel.Participants.Contains(participant);
         Logger.LogInformation("Participant signed in: {Result}", result);
-        return participant != null && Event.Participants.Any() && Event.Participants.Contains(participant);
+        return participant != null && EventModel.Participants.Any() && EventModel.Participants.Contains(participant);
     }
 }
