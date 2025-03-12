@@ -1,0 +1,36 @@
+﻿@page "/"
+@using EventEaseApp.Components
+@inject EventEaseApp.ParticipantService ParticipantService
+@inject EventEaseApp.ParticipantState ParticipantState
+
+<PageTitle>EventEase</PageTitle>
+
+<h1>Welcome to Event EventCard App</h1>
+
+<p>EventEase is a simple app to manage your events.</p>
+
+<ParticipantSelector />
+
+@if (ParticipantState.SelectedParticipant != null)
+{
+    <NavLink href="/events" class="btn btn-primary mt-2">Go to Event List</NavLink>
+
+    <h4>Participant Details</h4>
+    <p><strong>Name:</strong> @ParticipantState.SelectedParticipant.FirstName @ParticipantState.SelectedParticipant.LastName
+    </p>
+    <p><strong>Email:</strong> @ParticipantState.SelectedParticipant.Email</p>
+    <p><strong>Phone Number:</strong> @ParticipantState.SelectedParticipant.PhoneNumber</p>
+}
+
+@code {
+    protected override void OnInitialized()
+    {
+        ParticipantState.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        ParticipantState.OnChange -= StateHasChanged;
+    }
+
+}
