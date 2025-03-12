@@ -13,7 +13,7 @@ namespace EventEaseApp
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
-        public bool IsRegistered { get; set; }
-        public DateTime RegistrationDate { get; set; }
+        public bool IsRegistered { get; set; } //not currently used
+        public DateTime RegistrationDate { get; set; } //not currently used
     }
 }

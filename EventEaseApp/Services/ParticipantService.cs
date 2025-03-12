@@ -11,7 +11,7 @@ public class ParticipantService
         {
             return;
         }
-        await Task.Delay(2);
+        await Task.Delay(100);// Simulate an async operation
         GenerateRandomParticipants();
         _isInitialized = true;
     }
@@ -23,7 +23,7 @@ public class ParticipantService
 
     public Participant GetParticipantById(int id)
     {
-        return participants?.FirstOrDefault(p => p.Id == id);
+        return participants?.FirstOrDefault(p => p.Id == id) ?? new Participant();
     }
 
     public void AddParticipant(Participant participant)
@@ -52,6 +52,7 @@ public class ParticipantService
         }
     }
 
+    //get the next available participant id
     public int GetNewParticipantId() => participants.Any() ? participants.Max(p => p.Id) + 1 : 1;
 
     private void GenerateRandomParticipants()

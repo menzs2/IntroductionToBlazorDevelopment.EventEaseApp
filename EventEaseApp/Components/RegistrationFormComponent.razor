@@ -1,4 +1,6 @@
-﻿ @inject ParticipantService ParticipantService
+﻿@inject ParticipantService ParticipantService
+@using Microsoft.AspNetCore.Components.Forms
+
 <section class="registration-form">
     <EditForm Model="NewParticipant" OnValidSubmit="HandleValidSubmit">
         <DataAnnotationsValidator />
@@ -6,39 +8,40 @@
 
         <div class="form-group">
             <label for="firstName">First Name:</label>
-            <InputText id="firstName" class="form-control" @bind-Value="NewParticipant.FirstName" />
+            <InputText id="firstName" class="form-control" @bind-Value="NewParticipant.FirstName" @oninput="() => isEditing = true" />
         </div>
         <div class="form-group">
             <label for="lastName">Last Name:</label>
-            <InputText id="lastName" class="form-control" @bind-Value="NewParticipant.LastName" />
+            <InputText id="lastName" class="form-control" @bind-Value="NewParticipant.LastName" @oninput="() => isEditing = true" />
         </div>
         <div class="form-group">
             <label for="email">Email:</label>
-            <InputText id="email" class="form-control" @bind-Value="NewParticipant.Email" />
+            <InputText id="email" class="form-control" @bind-Value="NewParticipant.Email" @oninput="() => isEditing = true" />
         </div>
         <div class="form-group">
             <label for="phoneNumber">Phone Number:</label>
-            <InputText id="phoneNumber" class="form-control" @bind-Value="NewParticipant.PhoneNumber" />
+            <InputText id="phoneNumber" class="form-control" @bind-Value="NewParticipant.PhoneNumber" @oninput="() => isEditing = true" />
         </div>
         <div class="d-flex justify-content-start">
-            <button type="submit" class="btn btn-success btn-reg">Register</button>
+            <button type="submit" class="btn btn-success btn-reg mr-2">Register</button>
             <button type="button" class="btn btn-secondary btn-reg" @onclick="ResetForm">Reset</button>
         </div>
     </EditForm>
 </section>
 
 @code {
-
     private Participant NewParticipant { get; set; } = new Participant();
+
     public bool isEditing { get; private set; }
 
     private void HandleValidSubmit()
     {
-            NewParticipant.Id = ParticipantService.GetNewParticipantId();
-            NewParticipant.IsRegistered = true;
-            NewParticipant.RegistrationDate = DateTime.Now;
-            ParticipantService.AddParticipant(NewParticipant);
-            NewParticipant = new Participant(); // Reset the form
+        NewParticipant.Id = ParticipantService.GetNewParticipantId();
+        NewParticipant.IsRegistered = true;
+        NewParticipant.RegistrationDate = DateTime.Now;
+        ParticipantService.AddParticipant(NewParticipant);
+        NewParticipant = new Participant(); // Reset the form
+        isEditing = false;
     }
 
     private void ResetForm()

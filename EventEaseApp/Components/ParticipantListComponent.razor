@@ -8,15 +8,17 @@
     {
         @if (Event?.Participants != null && Event.Participants.Any())
         {
-            <ul>
-                @foreach (var participant in Event.Participants)
-                {
-                    <li>
-                        <strong>Name:</strong> @participant.FirstName @participant.LastName <br />
-                        <strong>Email:</strong> @participant.Email
-                    </li>
-                }
-            </ul>
+            <div class="participant-list border rounded p-2">
+                <ul class="list-unstyled">
+                    @foreach (var participant in Event.Participants)
+                    {
+                        <li class="mb-2">
+                            <strong>Name:</strong> @participant.FirstName @participant.LastName <br />
+                            <strong>Email:</strong> @participant.Email
+                        </li>
+                    }
+                </ul>
+            </div>
         }
         else
         {
@@ -26,10 +28,11 @@
 </section>
 
 @code {
-    private bool collapseList = true;
     [Parameter]
     public Event Event { get; set; } = new Event();
-
+    
+    private bool collapseList = true;
+    
     private void CollapseList()
     {
         collapseList = !collapseList;

@@ -11,7 +11,7 @@ public class EventService
         {
             return;
         }
-        await Task.Delay(2);
+        await Task.Delay(100);// Simulate an async operation
         GenerateRandomEvents();
         _isInitialized = true;
     }
@@ -38,7 +38,8 @@ public class EventService
                 Description = $"Description for event {i}",
                 Location = $"Location for event {i}",
                 EndDate = DateTime.Now.AddDays(i + 1),
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.Now,
+                Participants = new List<Participant>()
             });
         }
     }
