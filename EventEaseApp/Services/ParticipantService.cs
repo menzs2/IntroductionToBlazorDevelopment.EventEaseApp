@@ -72,7 +72,7 @@ public class ParticipantService
             Id = GetNewParticipantId(),
             FirstName = "Jean-Baptiste",
             LastName = "Bernadotte",
-            Email = "j.bernatotte@napoleonsmarchals.fr"
+            Email = "j.bernadotte@napoleonsmarchals.fr"
         });
 
         participants.Add(new Participant
@@ -94,7 +94,7 @@ public class ParticipantService
         participants.Add(new Participant
         {
             Id = GetNewParticipantId(),
-            FirstName = "Jean Lannes",
+            FirstName = "Jean",
             LastName = "Lannes",
             Email = "j.lannes@napoleonsmarchals.fr"
         });

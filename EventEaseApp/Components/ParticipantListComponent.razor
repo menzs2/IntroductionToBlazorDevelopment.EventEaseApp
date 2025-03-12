@@ -1,6 +1,6 @@
 <section class="attendee-list">
     <h4 @onclick="CollapseList" style="cursor: pointer;">
-        Attendees
+        Participants
         <span aria-hidden="true" class="@GetChevronClass()"></span>
     </h4>
 
@@ -30,9 +30,9 @@
 @code {
     [Parameter]
     public EventModel EventModel { get; set; } = new EventModel();
-    
+
     private bool collapseList = true;
-    
+
     private void CollapseList()
     {
         collapseList = !collapseList;
