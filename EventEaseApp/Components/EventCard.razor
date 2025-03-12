@@ -107,11 +107,22 @@
 
     private bool isEditing { get; set; }
 
-   protected async override Task OnInitializedAsync()
+   protected override async Task OnInitializedAsync()
     {
         isEditing = false;
         await ParticipantService.LoadParticipantsAsync();
+        if (EventModel.Participants == null)
+        {
+            EventModel.Participants = new List<Participant>();
+        }
+        ParticipantState.OnChange += StateHasChanged;
     }
+
+    public void Dispose()
+    {
+        ParticipantState.OnChange -= StateHasChanged;
+    }
+
     private void HandleValidSubmit()
     {
         // Handle the form submission, e.g., save the event data
@@ -126,11 +137,11 @@
 
     private void ToggleParticipantSignIn()
     {
-        Logger.LogInformation("Toggling participant sign-in status");
+        //Logger.LogInformation("Toggling participant sign-in status");
         var participant = ParticipantState.SelectedParticipant;
         if (participant != null)
         {
-            Logger.LogInformation("Participant: {Participant}", participant);
+            //Logger.LogInformation("Participant: {Participant}", participant);
             if (IsParticipantSignedIn())
             {
                 EventModel.Participants.Remove(participant);
@@ -145,9 +156,9 @@
     private bool IsParticipantSignedIn()
     {
         var participant = ParticipantState.SelectedParticipant;
-        Logger.LogInformation("Checking if participant is signed in: {Participant}", participant.LastName);
+        //Logger.LogInformation("Checking if participant is signed in: {Participant}", participant.LastName);
         var result = participant != null && EventModel.Participants.Any() && EventModel.Participants.Contains(participant);
-        Logger.LogInformation("Participant signed in: {Result}", result);
+        //Logger.LogInformation("Participant signed in: {Result}", result);
         return participant != null && EventModel.Participants.Any() && EventModel.Participants.Contains(participant);
     }
 }
